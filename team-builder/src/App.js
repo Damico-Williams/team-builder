@@ -2,20 +2,15 @@ import React, {useState} from 'react';
 import './App.css';
 import Form from'./Form.js';
 import Team from './Team.js';
+import TeamList from './TeamList.js'
 
 
 function App() {
 
-  const [teammates, setTeamMates] = useState([{name:'damico', role:'Frontend Engineer', email:'damico@email.com'}]);
+  const [teammates, setTeamMates] = useState(TeamList);
 
   const addToTeam = members => {
-    const newMember = {
-      id: teammates.length,
-      name: members.name,
-      role: members.role,
-      email: members.email
-    };
-    setTeamMates([...teammates, newMember]);
+    const newMember = setTeamMates([...teammates, members]);
   };
 
  
@@ -23,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <h1>TeamMembers List</h1>
-  <Team teammates={teammates} />
+      {teammates.map((person, id) => ( <Team name={person.name} email={person.email} role={person.role} key={id}/>))}
   <Form addToTeam={addToTeam}/>
     </div>
   );

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import App from './App.js'
+
 
 
  const Form = props => {
     
-    const [member, setMember] = useState({ name: '', email: '', role: ''});
+    const [member, setMember] = useState({ name: "", email: "", role: ""});
 
     const handleChange = event => {
         setMember({ ...member, [event.target.name]: event.target.value });
@@ -12,8 +12,12 @@ import App from './App.js'
 
       const handleSubmit = event => {
         event.preventDefault();
-        props.addToTeam(member);
-        setMember({ name: '', email: '', role: ''});
+         const newMember = {
+           ...member,
+           id: Date.now()
+         };
+        props.addToTeam(newMember);
+        setMember({ name: "", email: "", role: ""});
       };
 
   return (
@@ -44,15 +48,14 @@ import App from './App.js'
              <label htmlFor='roleSelect'>
                  Role:
              </label>
-             <select id='roleSelect' name='role'>
-                 <option value='1'>Backend Engineer</option>
-                 <option value='2'>UX Designer</option>
-                 <option value='3'>Data Specialist</option>
-                 <option value='4'>Frontend Engineer</option>
+             <select id='role' name='role' onChange={handleChange}>
+                 <option value='Backend Engineer'>Backend Engineer</option>
+                 <option value='UX Designer'>UX Designer</option>
+                 <option value='Data Specialist'>Data Specialist</option>
+                 <option value='Frontend Engineer'>Frontend Engineer</option>
              </select>
              <button type="submit">Add Member</button>
         </form>
-     <App />
     </div>
   );
 }
